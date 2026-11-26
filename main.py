@@ -7,8 +7,8 @@ with no trailing newline. Exits non-zero when the line breaks the length gate.
 import os
 import sys
 
-# Final pick: connective padding cut, punch, numbers and image intact.
-ENTRY = "Veltragen: 40 mm of rain, rising river, highs near 14, 90% chance of municipal regret."
+# Write 2 of 2: the revised line — behavioural deadpan, punch last.
+ENTRY = "Ostmere: 12 degrees, winds 30 km/h off the water, and a 60% chance the ferry runs anyway."
 
 
 def main() -> int:
