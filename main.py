@@ -1,23 +1,28 @@
 """Deadpan forecast entry for u-coral-ibis-18.
 
-Writes one 160-character-max line to $OUTPUT_DIR/entry.txt, UTF-8, no trailing newline.
+Writes one line, at most 160 characters, to $OUTPUT_DIR/entry.txt, UTF-8,
+with no trailing newline. Exits non-zero when the line breaks the length gate.
 """
 
 import os
+import sys
 
-ENTRY = "Kestrel Hollow: 4 to 6 inches of snow overnight. The plow is one man and he is asleep."
+# Final pick: connective padding cut, punch, numbers and image intact.
+ENTRY = "Veltragen: 40 mm of rain, rising river, highs near 14, 90% chance of municipal regret."
 
 
-def main() -> None:
-    if not (1 <= len(ENTRY) <= 160) or not ENTRY.strip():
-        print(f"LEN={len(ENTRY)}")
-        raise SystemExit(1)
+def main() -> int:
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
+    length = len(ENTRY)
+    if not (1 <= length <= 160) or not ENTRY.strip():
+        print(f"LEN={length}")
+        return 1
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as fh:
         fh.write(ENTRY)
-    print(f"LEN={len(ENTRY)}")
+    print(f"LEN={length}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
